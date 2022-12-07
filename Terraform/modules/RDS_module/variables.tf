@@ -1,0 +1,10 @@
+variable "engine_name" {}
+variable "engine_version" {}
+variable "instance_type" {}
+variable "private_app_subnet_az1_id" {}
+variable "private_app_subnet_az2_id" {}
+variable "availability_zone" {}
+variable "user_name" {}
+variable "passwd" {}
+variable "environment" {}
+variable "project_name" {}

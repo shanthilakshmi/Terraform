@@ -7,7 +7,7 @@ provider "aws" {
 
 # Create vpc
 module "vpc" {
-	source = "..Terraform/modules/vpc_module"
+	source = "../Terraform/modules/vpc_module"
 	region = var.region
 	project_name = var.project_name
 	vpc_cidr = var.vpc_cidr
@@ -22,7 +22,7 @@ module "vpc" {
 # Create nat gateway
 
 module "nat_gateway" {
-	source 				= "..Terraform/modules/Nat-Gateway_module"
+	source 				= "../Terraform/modules/Nat-Gateway_module"
 	public_subnet_az1_id		= module.vpc.public_subnet_az1_id
 	internet_gateway     		= module.vpc.internet_gateway
 	public_subnet_az2_id 		= module.vpc.public_subnet_az2_id
@@ -35,13 +35,13 @@ module "nat_gateway" {
 }
 
 module "security_group" {
-	source = "..Terraform/modules/SecurityGroups_module"
+	source = "../Terraform/modules/SecurityGroups_module"
 	vpc_id = module.vpc.vpc_id
   environment = var.environment
 }
 
 module "EC2" {
-  source = "..Terraform/modules/EC2_module"
+  source = "../Terraform/modules/EC2_module"
   ami    = var.ami
   instance_size = var.instance_size
   //vpc_id        = module.vpc.vpc_id
@@ -50,7 +50,7 @@ module "EC2" {
   environment = var.environment
 }
 module "RDS" {
-  source                = "..Terraform/modules/RDS_module"
+  source                = "../Terraform/modules/RDS_module"
   engine_name           = var.engine_name
   engine_version        = var.engine_version
   instance_type         = var.instance_type
@@ -63,7 +63,7 @@ module "RDS" {
   environment = var.environment
 }
 module "application_load_balancer" {
-  source                  = "..Terraform/modules/Loadbalancer_module"
+  source                  = "../Terraform/modules/Loadbalancer_module"
   project_name            =  module.vpc.project_name
   alb_security_group_id   =  module.security_group.alb_security_group_id
   public_subnet_az1_id    =  module.vpc.public_subnet_az1_id
